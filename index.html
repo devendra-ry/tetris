@@ -569,13 +569,12 @@
                     break;
                 case 'ArrowDown':
                 case 's':
-                    if (!movePiece(0, 1)) { // If move failed, lock immediately
-                         freezePiece();
-                         clearLines();
-                         spawnPiece();
+                    if (!movePiece(0, 1)) { // If move down failed (hit bottom or another piece)
+                        freezePiece();   // Lock the piece in place
+                        clearLines();    // Check for completed lines
+                        spawnPiece();    // Spawn a new piece
                     } else {
-                        // Award points for manual drop
-                        score += 1;
+                        // Remove the line that awards points for manual drop
                         updateUI();
                     }
                     dropStart = Date.now(); // Reset drop timer after manual down
